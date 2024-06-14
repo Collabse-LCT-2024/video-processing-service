@@ -5,12 +5,14 @@ import ffmpeg
 
 class FrameExtractor:
     def __init__(self, output_dir):
-        self.logger = Logger().get_logger()
         self.output_dir = output_dir
         self.platform = os.name
 
+        if not os.path.exists(self.output_dir):
+            os.makedirs(self.output_dir)
+
         if self.platform == "nt":
-            self.ffmpeg_path = os.path.join(os.getcwd(), "ffmpeg", "bin", "ffmpeg.exe")
+            self.ffmpeg_path = os.path.join("C:", "FFmpeg", "bin", "ffmpeg.exe")
         else:
             self.ffmpeg_path = "ffmpeg"
 
@@ -23,8 +25,6 @@ class FrameExtractor:
             .output(output_pattern, vsync="vfr")
             .global_args(
                 "-loglevel", "error"
-            )  # Add this line to suppress FFmpeg output
+            )
             .run(cmd=self.ffmpeg_path, capture_stdout=True, capture_stderr=True)
         )
-
-        self.logger.info(f"Extracting frames from video {video_link}")

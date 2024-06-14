@@ -32,5 +32,5 @@ class BlipEmbedder:
             with torch.no_grad():
                 out = self.model.generate(**inputs)
             result_batch = self.processor.decode(out[0], skip_special_tokens=True)
-            result.extend(result_batch)
+            result.append(result_batch)
         return result

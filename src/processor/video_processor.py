@@ -1,9 +1,11 @@
 from core.logger import Logger
 import os
 
+from processor.frame_extractor import FrameExtractor
+
 
 class VideoProcessor:
-    def __init__(self, video_embedder, text_embedder, frame_extractor):
+    def __init__(self, video_embedder, text_embedder, frame_extractor: FrameExtractor):
         self.video_embedder = video_embedder
         self.text_embedder = text_embedder
         self.frame_extractor = frame_extractor
@@ -14,17 +16,17 @@ class VideoProcessor:
 
         self.frame_extractor.extract_frames(video_link)
 
-        frame_path = [f"{self.frame_extractor.frames_path}/{frame}" for frame in
-                      os.listdir(self.frame_extractor.frames_path)]
+        frame_path = [f"{self.frame_extractor.output_dir}/{frame}" for frame in
+                      os.listdir(self.frame_extractor.output_dir)]
 
         self.logger.info(f"Extracted frames from video {video_id}")
 
-        texts_from_frames = self.text_embedder.embed(frame_path)
+        texts_from_frames = self.video_embedder.embed(frame_path)
 
         self.logger.info(f"Extracted texts from frames of video {video_id}")
 
-        video_embedding = self.video_embedder.embed(texts_from_frames)
+        video_embedding = self.text_embedder.embed(texts_from_frames)
 
-        self.logger.info(f"Embedding video {video_id}")
+        self.logger.info(f"Extracted embedding from texts of video {video_id}")
 
-        return video_embedding
+        return video_embedding, texts_from_frames

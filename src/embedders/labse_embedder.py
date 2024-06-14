@@ -28,4 +28,4 @@ class LabseEmbedder:
     def embed(self, texts: List[str]) -> np.ndarray:
         encoded_input = self._tokenize_batch(texts)
         embeddings = self._embed(encoded_input)
-        return embeddings.cpu().numpy().mean(dim=0)
+        return embeddings.cpu().numpy().mean(axis=0)
