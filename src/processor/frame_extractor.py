@@ -16,7 +16,15 @@ class FrameExtractor:
         else:
             self.ffmpeg_path = "ffmpeg"
 
+    def _clear_output_dir(self):
+        for file in os.listdir(self.output_dir):
+            os.remove(os.path.join(self.output_dir, file))
+
     def extract_frames(self, video_link, n: int = 15, width: int = 299, height: int = 299):
+
+        # TODO: Test this method
+        self._clear_output_dir()
+
         output_pattern = os.path.join(self.output_dir, "frame_%04d.png")
         (
             ffmpeg.input(video_link)

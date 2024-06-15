@@ -12,7 +12,10 @@ class VideoProcessor:
 
         self.logger = Logger().get_logger()
 
+    # TODO: Add directory with video id
     def process(self, video_id, video_link):
+
+        video_dir = f"video_{video_id}"
 
         self.frame_extractor.extract_frames(video_link)
 

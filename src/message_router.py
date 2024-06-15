@@ -2,36 +2,38 @@ import json
 
 from aiokafka import ConsumerRecord
 
-from core.logger import Logger
-from database.base import DBClient
-from models.events import KafkaUploadedEvent
-from models.video_properties import VideoProperties
+from src.core.config import settings
+from src.core.logger import Logger
+from src.models.events import KafkaUploadedEvent
+from src.models.embedding_data import EmbeddingData
+from src.services.base import EmbeddingServiceABC
 
 
 class MessageRouter:
-    def __init__(self, video_processor, db_client: DBClient):
+    def __init__(self, video_processor, embedding_service: EmbeddingServiceABC):
         self.video_processor = video_processor
-        self.db_client = db_client
+        self.embedding_service = embedding_service
         self.logger = Logger().get_logger()
 
     async def route_message(self, msg: ConsumerRecord):
-        message = json.loads(msg.value.decode("utf-8"))
-        event = KafkaUploadedEvent(**message)
+        try:
+            message = json.loads(msg.value.decode("utf-8"))
+            event = KafkaUploadedEvent(**message)
 
-        video_id = event.video_id
-        video_url = event.video_url
+            video_id = event.video_id
+            video_url = event.video_url
 
-        if self.db_client.find_by_id(video_id):
-            self.logger.info(f"Видео {video_id} уже обработано")
-            return
+            video_embedding, video_text = self.video_processor.process(video_id, video_url)
 
-        video_embedding, video_text = self.video_processor.process(video_id, video_url)
+            video_properties = EmbeddingData(
+                video_id=video_id,
+                embedding=video_embedding.tolist(),
+                video_url=video_url,
+                text=video_text,
+                collection=settings.QDRANT_COLLECTION_NAME
+            )
 
-        video_properties = VideoProperties(
-            external_id=video_id,
-            link=video_url,
-            text=video_text,
-        )
+            self.embedding_service.send_embedding(video_properties)
 
-        self.db_client.save_embedding(video_embedding, video_properties)
-
+        except Exception as e:
+            self.logger.error(f"Произошла ошибка при обработке сообщения: {e}")
