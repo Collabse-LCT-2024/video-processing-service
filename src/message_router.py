@@ -32,6 +32,7 @@ class MessageRouter:
                 video_url=video_url,
                 text=video_text if video_text is not None else "",
                 valid=valid,
+                description=video_description,
                 collection=settings.QDRANT_COLLECTION_NAME
             )
 
