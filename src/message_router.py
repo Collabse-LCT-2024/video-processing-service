@@ -23,11 +23,17 @@ class MessageRouter:
             video_id = event.video_id
             video_url = event.video_url
 
-            video_embedding, video_text, valid = self.audio_processor.process(video_id, video_url)
+            # video_embedding, video_text, valid = self.audio_processor.process(video_id, video_url)
+
+            video_embedding = None
+
+            video_text = None
+
+            valid = False
 
             video_properties = EmbeddingData(
                 video_id=video_id,
-                embedding=video_embedding.tolist() if video_embedding is not None else [],
+                embedding=video_embedding.tolist() if video_embedding is not None else [1 for _ in range(768)],
                 video_url=video_url,
                 text=video_text if video_text is not None else "",
                 valid=valid,
