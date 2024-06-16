@@ -7,9 +7,9 @@ from src.embedders.labse_embedder import LabseEmbedder
 from src.message_router import MessageRouter
 from src.services.embedding_aggregator_service import EmbeddingAggregatorService
 from src.kafka.consumer import KafkaConsumer
-from utils.nltk_tokenizer import NLTKTokenizer
-from utils.text_summarizer import TextSummarizer
-from utils.vdeo_downloader import VideoDownloader
+from src.utils.nltk_tokenizer import NLTKTokenizer
+from src.utils.text_summarizer import TextSummarizer
+from src.utils.vdeo_downloader import VideoDownloader
 
 logger = Logger().get_logger()
 
