@@ -10,8 +10,8 @@ from src.services.base import EmbeddingServiceABC
 
 
 class MessageRouter:
-    def __init__(self, video_processor, embedding_service: EmbeddingServiceABC):
-        self.video_processor = video_processor
+    def __init__(self, tags_processor, embedding_service: EmbeddingServiceABC):
+        self.tags_processor = tags_processor
         self.embedding_service = embedding_service
         self.logger = Logger().get_logger()
 
@@ -22,8 +22,9 @@ class MessageRouter:
 
             video_id = event.video_id
             video_url = event.video_url
+            video_description = event.video_desc
 
-            video_embedding, video_text = self.video_processor.process(video_id, video_url)
+            video_embedding, video_text = self.tags_processor.process(video_id, video_description)
 
             video_properties = EmbeddingData(
                 video_id=video_id,

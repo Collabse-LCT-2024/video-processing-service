@@ -1,11 +1,9 @@
 import asyncio
 
+from processor.tags_processor import TagsProcessor
 from src.core.logger import Logger
-from src.embedders.blip_embedder import BlipEmbedder
 from src.embedders.labse_embedder import LabseEmbedder
 from src.message_router import MessageRouter
-from src.processor.frame_extractor import FrameExtractor
-from src.processor.video_processor import VideoProcessor
 from src.services.embedding_aggregator_service import EmbeddingAggregatorService
 from src.kafka.consumer import KafkaConsumer
 
@@ -16,12 +14,10 @@ async def main():
     logger.info("Запуск приложения")
 
     consumer = KafkaConsumer()
-    video_embedder = BlipEmbedder()
     text_embedder = LabseEmbedder()
     embedding_service = EmbeddingAggregatorService()
-    frame_extractor = FrameExtractor("frames")
 
-    video_processor = VideoProcessor(video_embedder, text_embedder, frame_extractor)
+    video_processor = TagsProcessor(text_embedder)
 
     router = MessageRouter(video_processor, embedding_service)
 
