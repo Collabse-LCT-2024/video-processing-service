@@ -23,6 +23,8 @@ class MessageRouter:
             video_id = event.video_id
             video_url = event.video_url
 
+            self.logger.info(f"Start processing audio {video_id}")
+
             video_embedding, video_text, valid = self.audio_processor.process(video_id, video_url)
 
             video_properties = EmbeddingData(
@@ -37,7 +39,7 @@ class MessageRouter:
 
             self.embedding_service.send_embedding(video_properties)
 
-            self.logger.info(f"Обработка сообщения завершена: {video_id}")
+            self.logger.info(f"Successfully processed audio {video_id}")
 
         except Exception as e:
-            self.logger.error(f"Произошла ошибка при обработке сообщения: {e}")
+            self.logger.error(f"Error while processing audio: {e}")
