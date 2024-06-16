@@ -30,10 +30,13 @@ class MessageRouter:
                 embedding=video_embedding.tolist(),
                 video_url=video_url,
                 text=video_text,
+                valid=True,
                 collection=settings.QDRANT_COLLECTION_NAME
             )
 
             self.embedding_service.send_embedding(video_properties)
+
+            self.logger.info(f"Successfully processed video {video_id}")
 
         except Exception as e:
             self.logger.error(f"Произошла ошибка при обработке сообщения: {e}")
