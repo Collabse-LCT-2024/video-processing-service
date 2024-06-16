@@ -1,4 +1,3 @@
-from core.logger import Logger
 import os
 import ffmpeg
 
@@ -20,7 +19,7 @@ class FrameExtractor:
         for file in os.listdir(self.output_dir):
             os.remove(os.path.join(self.output_dir, file))
 
-    def extract_frames(self, video_link, n: int = 15, width: int = 299, height: int = 299):
+    def extract_frames(self, video_link, n: int = 15, width: int = 384, height: int = 384):
 
         # TODO: Test this method
         self._clear_output_dir()

@@ -1,6 +1,6 @@
 from aiokafka import AIOKafkaConsumer
 
-from core.config import settings
+from src.core.config import settings
 
 
 class KafkaConsumer:
