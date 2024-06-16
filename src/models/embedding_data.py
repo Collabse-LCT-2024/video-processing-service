@@ -8,6 +8,7 @@ class EmbeddingData:
     embedding: list[float]
     video_url: str
     text: str
+    valid: bool
     collection: str
 
     def to_dict(self):
@@ -16,5 +17,6 @@ class EmbeddingData:
             "embedding": self.embedding,
             "video_url": self.video_url,
             "text": self.text,
+            "valid": self.valid,
             "collection": self.collection
         }

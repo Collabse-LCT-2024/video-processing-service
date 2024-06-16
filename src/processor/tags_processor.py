@@ -14,7 +14,7 @@ class TagsProcessor:
 
         if len(tags) == 0:
             self.logger.info(f"Video {video_id} has no tags")
-            return
+            return None, None, False
 
         self.logger.info(f"Extracted tags from video {video_id}")
 
@@ -24,4 +24,4 @@ class TagsProcessor:
 
         self.logger.info(f"Done embedding tags for video {video_id}")
 
-        return tags_embedding, tags
+        return tags_embedding, tags, True
