@@ -24,6 +24,8 @@ class MessageRouter:
             video_url = event.video_url
             video_description = event.video_desc
 
+            self.logger.info(f"Start processing tags for video {video_id}")
+
             video_embedding, video_text, valid = self.tags_processor.process(video_id, video_description)
 
             video_properties = EmbeddingData(
@@ -38,5 +40,7 @@ class MessageRouter:
 
             self.embedding_service.send_embedding(video_properties)
 
+            self.logger.info(f"Successfully processed tags {video_id}")
+
         except Exception as e:
-            self.logger.error(f"Произошла ошибка при обработке сообщения: {e}")
+            self.logger.error(f"Error while processing video: {e}")
