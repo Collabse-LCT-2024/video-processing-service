@@ -12,8 +12,9 @@ class WhisperTranscriber:
         try:
             result = self.model.transcribe(audio_path, condition_on_previous_text=False, no_speech_threshold=0.2)
             return result
-        except Exception:
-            raise Exception("Failed to transcribe audio")
+        except Exception as e:
+            print(f"Error transcribing audio: {str(e)}")
+            return None
 
     @staticmethod
     def get_language(result):
