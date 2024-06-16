@@ -15,6 +15,6 @@ class EmbeddingData:
             "video_id": str(self.video_id),
             "embedding": self.embedding,
             "video_url": self.video_url,
-            "text": '.'.join(self.text),
+            "text": self.text,
             "collection": self.collection
         }
