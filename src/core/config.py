@@ -15,9 +15,6 @@ class Settings(BaseSettings):
         env="DESCRIPTION",
     )
 
-    QDRANT_HOST: str = Field(..., alias="QDRANT_HOST", env="QDRANT_HOST")
-    QDRANT_PORT: int = Field(..., alias="QDRANT_PORT", env="QDRANT_PORT")
-    QDRANT_GRPC_PORT: int = Field(..., alias="QDRANT_GRPC_PORT", env="QDRANT_GRPC_PORT")
     QDRANT_COLLECTION_NAME: str = Field(..., alias="QDRANT_COLLECTION_NAME", env="QDRANT_COLLECTION_NAME")
 
     kafka_video_processing_requests_topic: str = Field(

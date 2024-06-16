@@ -1,4 +1,3 @@
-from core.logger import Logger
 import os
 import ffmpeg
 

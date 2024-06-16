@@ -1,13 +1,14 @@
 from aiokafka import AIOKafkaConsumer
 
-from core.config import settings
+from src.core.config import settings
 
 
 class KafkaConsumer:
     def __init__(self):
         self.consumer = AIOKafkaConsumer(
             settings.kafka_video_processing_requests_topic,
-            bootstrap_servers=f"{settings.KAFKA_HOST}:{settings.KAFKA_PORT}"
+            bootstrap_servers=f"{settings.KAFKA_HOST}:{settings.KAFKA_PORT}",
+            auto_offset_reset='earliest'
         )
 
     async def consume_messages(self):

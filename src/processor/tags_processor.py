@@ -1,6 +1,6 @@
 import re
 
-from core.logger import Logger
+from src.core.logger import Logger
 
 
 class TagsProcessor:

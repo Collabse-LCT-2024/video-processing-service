@@ -1,6 +1,6 @@
 import asyncio
 
-from processor.tags_processor import TagsProcessor
+from src.processor.tags_processor import TagsProcessor
 from src.core.logger import Logger
 from src.embedders.labse_embedder import LabseEmbedder
 from src.message_router import MessageRouter

@@ -1,7 +1,7 @@
 from core.logger import Logger
 import os
 
-from processor.frame_extractor import FrameExtractor
+from src.processor.frame_extractor import FrameExtractor
 
 
 class VideoProcessor:
