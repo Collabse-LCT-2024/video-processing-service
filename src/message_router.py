@@ -27,7 +27,7 @@ class MessageRouter:
 
             video_properties = EmbeddingData(
                 video_id=video_id,
-                embedding=video_embedding.tolist(),
+                embedding=video_embedding.tolist() if video_embedding is not None else None,
                 video_url=video_url,
                 text=video_text,
                 valid=valid,
@@ -35,6 +35,8 @@ class MessageRouter:
             )
 
             self.embedding_service.send_embedding(video_properties)
+
+            self.logger.info(f"Обработка сообщения завершена: {video_id}")
 
         except Exception as e:
             self.logger.error(f"Произошла ошибка при обработке сообщения: {e}")
