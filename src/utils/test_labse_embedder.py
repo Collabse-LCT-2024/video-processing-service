@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-from embedders.labse_embedder import LabseEmbedder
+from src.embedders.labse_embedder import LabseEmbedder
 
 
 class TestLabseEmbedder(unittest.TestCase):

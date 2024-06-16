@@ -1,7 +1,7 @@
 import asyncio
 
-from embedders.whisper_transcriber import WhisperTranscriber
-from processor.audio_precessor import AudioProcessor
+from src.embedders.whisper_transcriber import WhisperTranscriber
+from src.processor.audio_precessor import AudioProcessor
 from src.core.logger import Logger
 from src.embedders.labse_embedder import LabseEmbedder
 from src.message_router import MessageRouter

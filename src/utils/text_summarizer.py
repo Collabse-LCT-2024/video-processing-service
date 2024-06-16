@@ -1,6 +1,6 @@
 from summa import summarizer
 
-from utils.nltk_tokenizer import NLTKTokenizer
+from src.utils.nltk_tokenizer import NLTKTokenizer
 
 
 class TextSummarizer:
