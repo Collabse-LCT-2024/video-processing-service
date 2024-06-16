@@ -1,4 +1,4 @@
-from core.logger import Logger
+from src.core.logger import Logger
 import os
 
 from src.processor.frame_extractor import FrameExtractor
