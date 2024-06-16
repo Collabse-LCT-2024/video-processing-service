@@ -10,3 +10,4 @@ nltk==3.8.1
 summa==1.2.0
 openai-whisper
 pydantic-settings
+youtube_dl
