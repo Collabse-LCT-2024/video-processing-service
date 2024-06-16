@@ -2,7 +2,7 @@ import os
 import shutil
 import pytest
 
-from processor.frame_extractor import FrameExtractor
+from utils.frame_extractor import FrameExtractor
 
 
 @pytest.fixture

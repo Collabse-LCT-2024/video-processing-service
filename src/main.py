@@ -1,13 +1,15 @@
 import asyncio
 
+from embedders.whisper_transcriber import WhisperTranscriber
+from processor.audio_precessor import AudioProcessor
 from src.core.logger import Logger
-from src.embedders.blip_embedder import BlipEmbedder
 from src.embedders.labse_embedder import LabseEmbedder
 from src.message_router import MessageRouter
-from src.processor.frame_extractor import FrameExtractor
-from src.processor.video_processor import VideoProcessor
 from src.services.embedding_aggregator_service import EmbeddingAggregatorService
 from src.kafka.consumer import KafkaConsumer
+from utils.nltk_tokenizer import NLTKTokenizer
+from utils.text_summarizer import TextSummarizer
+from utils.vdeo_downloader import VideoDownloader
 
 logger = Logger().get_logger()
 
@@ -16,14 +18,21 @@ async def main():
     logger.info("Запуск приложения")
 
     consumer = KafkaConsumer()
-    video_embedder = BlipEmbedder()
-    text_embedder = LabseEmbedder()
     embedding_service = EmbeddingAggregatorService()
-    frame_extractor = FrameExtractor("frames")
 
-    video_processor = VideoProcessor(video_embedder, text_embedder, frame_extractor)
+    video_downloader = VideoDownloader()
+    transcriber = WhisperTranscriber()
+    tokenizer = NLTKTokenizer()
+    text_summarizer = TextSummarizer(tokenizer)
+    text_embedder = LabseEmbedder()
+    audio_processor = AudioProcessor(
+        video_downloader,
+        transcriber,
+        text_summarizer,
+        text_embedder
+    )
 
-    router = MessageRouter(video_processor, embedding_service)
+    router = MessageRouter(audio_processor, embedding_service)
 
     try:
         async for messages in consumer.consume_messages():

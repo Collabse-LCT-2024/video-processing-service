@@ -10,8 +10,8 @@ from src.services.base import EmbeddingServiceABC
 
 
 class MessageRouter:
-    def __init__(self, video_processor, embedding_service: EmbeddingServiceABC):
-        self.video_processor = video_processor
+    def __init__(self, audio_processor, embedding_service: EmbeddingServiceABC):
+        self.audio_processor = audio_processor
         self.embedding_service = embedding_service
         self.logger = Logger().get_logger()
 
@@ -23,13 +23,13 @@ class MessageRouter:
             video_id = event.video_id
             video_url = event.video_url
 
-            video_embedding, video_text = self.video_processor.process(video_id, video_url)
+            video_embedding, video_text = self.audio_processor.process(video_id, video_url)
 
             video_properties = EmbeddingData(
                 video_id=video_id,
                 embedding=video_embedding.tolist(),
                 video_url=video_url,
-                text=video_text,
+                text=[video_text],
                 collection=settings.QDRANT_COLLECTION_NAME
             )
 

@@ -4,7 +4,7 @@ import shutil
 import numpy as np
 from embedders.blip_embedder import BlipEmbedder
 from embedders.labse_embedder import LabseEmbedder
-from processor.frame_extractor import FrameExtractor
+from utils.frame_extractor import FrameExtractor
 from processor.video_processor import VideoProcessor
 
 

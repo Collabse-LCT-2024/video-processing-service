@@ -1,7 +1,7 @@
 from core.logger import Logger
 import os
 
-from processor.frame_extractor import FrameExtractor
+from utils.frame_extractor import FrameExtractor
 
 
 class VideoProcessor:
@@ -12,10 +12,7 @@ class VideoProcessor:
 
         self.logger = Logger().get_logger()
 
-    # TODO: Add directory with video id
     def process(self, video_id, video_link):
-
-        video_dir = f"video_{video_id}"
 
         self.frame_extractor.extract_frames(video_link)
 

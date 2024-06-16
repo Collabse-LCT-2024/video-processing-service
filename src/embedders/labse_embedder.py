@@ -21,11 +21,11 @@ class LabseEmbedder:
             model_output = self.model(
                 **{k: v.to(self.device) for k, v in encoded_input.items()}
             )
-            embeddings = model_output.pooler_output
-            embeddings = torch.nn.functional.normalize(embeddings)
+        embeddings = model_output.pooler_output
+        embeddings = torch.nn.functional.normalize(embeddings)
         return embeddings
 
-    def embed(self, texts: List[str]) -> np.ndarray:
+    def embed(self, texts: List[str]):
         encoded_input = self._tokenize_batch(texts)
         embeddings = self._embed(encoded_input)
-        return embeddings.cpu().numpy().mean(axis=0)
+        return embeddings.cpu()[:-1].mean(dim=0)
