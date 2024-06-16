@@ -17,7 +17,7 @@ class AudioProcessor:
 
             if text == "":
                 os.remove(v_path)
-                raise Exception("Empty transcript")
+                return None, None, False
 
             res_s_tok = self.text_summarizer.process_text(text, lang)
 
@@ -25,7 +25,7 @@ class AudioProcessor:
 
             os.remove(v_path)
 
-            return embeddings, text
+            return embeddings, text, True
         except Exception as e:
             print(f"Error processing video {video_id}: {str(e)}")
-            raise e
+            return None, None, False

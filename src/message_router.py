@@ -23,13 +23,14 @@ class MessageRouter:
             video_id = event.video_id
             video_url = event.video_url
 
-            video_embedding, video_text = self.audio_processor.process(video_id, video_url)
+            video_embedding, video_text, valid = self.audio_processor.process(video_id, video_url)
 
             video_properties = EmbeddingData(
                 video_id=video_id,
                 embedding=video_embedding.tolist(),
                 video_url=video_url,
-                text=[video_text],
+                text=video_text,
+                valid=valid,
                 collection=settings.QDRANT_COLLECTION_NAME
             )
 
