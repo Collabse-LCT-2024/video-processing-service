@@ -9,6 +9,7 @@ class EmbeddingData:
     video_url: str
     text: str
     valid: bool
+    description: str
     collection: str
 
     def to_dict(self):
@@ -18,5 +19,6 @@ class EmbeddingData:
             "video_url": self.video_url,
             "text": '.'.join(self.text),
             "valid": self.valid,
+            "description": self.description,
             "collection": self.collection
         }
