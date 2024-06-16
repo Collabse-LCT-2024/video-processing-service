@@ -9,7 +9,7 @@ class BaseEvent(BaseModel):
     author_id: UUID | None = None
     event_type: str | None = None
     video_id: UUID | None = None
-    timestamp: datetime.datetime = Field(default=datetime.datetime.now(datetime.UTC))
+    timestamp: datetime.datetime = Field(default=datetime.datetime.now(datetime.timezone.utc))
 
 
 class KafkaUploadedEvent(BaseEvent):
