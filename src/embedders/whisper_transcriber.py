@@ -5,9 +5,8 @@ import whisper
 class WhisperTranscriber:
     def __init__(self, model_name="medium"):
         self.model_name = model_name
-        self.model = whisper.load_model(model_name, in_memory=True)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.model = self.model.to(self.device)
+        self.model = whisper.load_model(model_name, device=self.device, in_memory=True)
 
     def transcribe(self, audio_path):
         try:
