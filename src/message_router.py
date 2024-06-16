@@ -17,11 +17,14 @@ class MessageRouter:
 
     async def route_message(self, msg: ConsumerRecord):
         try:
+
             message = json.loads(msg.value.decode("utf-8"))
             event = KafkaUploadedEvent(**message)
 
             video_id = event.video_id
             video_url = event.video_url
+
+            self.logger.info(f"Start processing video {video_id}")
 
             video_embedding, video_text = self.video_processor.process(video_id, video_url)
 
@@ -40,4 +43,4 @@ class MessageRouter:
             self.logger.info(f"Successfully processed video {video_id}")
 
         except Exception as e:
-            self.logger.error(f"Произошла ошибка при обработке сообщения: {e}")
+            self.logger.error(f"Error while processing video: {e}")

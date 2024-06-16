@@ -13,7 +13,7 @@ logger = Logger().get_logger()
 
 
 async def main():
-    logger.info("Запуск приложения")
+    logger.info("Video processing service started.")
 
     consumer = KafkaConsumer()
     video_embedder = BlipEmbedder()
@@ -30,9 +30,9 @@ async def main():
             for msg in messages:
                 await router.route_message(msg)
     except Exception as e:
-        logger.error(f"Произошла ошибка при обработке сообщений: {e}")
+        logger.error(f"Error while consuming messages: {e}")
     finally:
-        logger.info("Приложение завершает работу.")
+        logger.info("Video processing service stopped.")
 
 
 if __name__ == "__main__":
